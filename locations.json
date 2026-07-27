@@ -1,4 +1,4 @@
 [
-    {"id": "kings_landing", "x": 2581, "y": 1180},
-    {"id": "winterfell", "x": 759, "y": 1344}
+    {"id": "kings_landing", "x": 2581, "y": 1186, "marker": "circle"},
+    {"id": "winterfell", "x": 760, "y": 1345, "marker": "diamond"}
 ]

@@ -8,10 +8,6 @@ var map = L.map('map', {
     minZoom: -2
 });
 
-var bounds = [[0, 0], [imageHeight, imageWidth]];
-L.imageOverlay('images/westeros.jpg', bounds).addTo(map);
-map.fitBounds(bounds);
-
 // load JSON data
 
 async function loadJSON(filename) {
@@ -35,10 +31,12 @@ const langSelect = document.getElementById("language");
 let lang = langSelect.value;
 let fuse;
 let locations;
+let debounceTimer;
 
-init();
-
-input.addEventListener("input", () => search(input.value));
+input.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => search(input.value), 250);
+});
 
 langSelect.addEventListener("change", async function () {
     lang = langSelect.value;
@@ -64,18 +62,77 @@ function buildFuseIndex(translations) {
 
 function search(text) {
     if (!text) {
-        map.flyTo([imageHeight / 2, imageWidth / 2], -2, {duration: 0.4});
+        returnToBaseState();
         return;
     }
     
     const results = fuse.search(text);
+    if (results.length === 0) {
+        returnToBaseState();
+        return;
+    }
+
     const locID = results[0].item.id;
     const location = locations.get(locID);
 
+    placeHighlightMarker(location.y, location.x, location.marker);
     map.flyTo([location.y, location.x], 0.5, {duration: 0.8});
 }
 
+function returnToBaseState() {
+    removeHighlightMarker();
+    map.flyTo([imageHeight / 2, imageWidth / 2], -2, {duration: 0.4});
+}
+
+// Location Highlight
+
+let highlightMarker = null;
+
+function createDiamondMarker(y, x, size) {
+    const half = size / 2;
+    return L.polygon([
+        [y - half, x],          // top
+        [y, x + half / 1.5],    // right
+        [y + half, x],          // bottom
+        [y, x - half / 1.5]     // left
+    ], {
+        weight: 0,
+        fillColor: "#ff3511",
+        fillOpacity: 1
+    });
+}
+
+function createCircleMarker(y, x, size) {
+    return L.circle([y, x], {
+        radius: size / 2,
+        weight: 0,
+        fillColor: "#ff3511",
+        fillOpacity: 1
+    });
+}
+
+function placeHighlightMarker(y, x, markerType) {
+    removeHighlightMarker();
+    if (markerType == "diamond") {
+        highlightMarker = createDiamondMarker(y, x, 36).addTo(map);
+    } else if (markerType == "circle") {
+        highlightMarker = createCircleMarker(y, x, 32).addTo(map);
+    }
+}
+
+function removeHighlightMarker() {
+    if (highlightMarker) {
+        map.removeLayer(highlightMarker);
+    }
+}
+
+// =========== Init
+
 function init() {
+    var bounds = [[0, 0], [imageHeight, imageWidth]];
+    L.imageOverlay('images/westeros.jpg', bounds).addTo(map);
+    map.fitBounds(bounds);
+
     loadTranslations(lang).then(translations => {
         buildFuseIndex(translations);
     });
@@ -84,3 +141,5 @@ function init() {
         locations = buildLocationsMap(locs);
     });
 }
+
+init();
