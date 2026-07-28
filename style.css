@@ -1,11 +1,57 @@
+:root {
+    --primary-color: #45362a;
+    --secondary-color: #604c39;
+    --highlight-color: #f8dfc6;
+    --division-color: #32291e;
+}
+
+body {
+    overflow: hidden;
+    margin: 0%;
+}
+
 #map { 
     height: 100vh;
     width: 100%;
+    background-color: var(--secondary-color);
 }
 
 .topbar {
-    margin: 6px;
+    padding: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--primary-color);
+}
+
+#searchInput {
+    padding: 8px;
+    color: var(--highlight-color);
+    background-color: var(--primary-color);
+    border-color: var(--secondary-color);
+    border-style: solid;
+    border-width: 2px;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+}
+
+#searchInput:hover {
+    border-width: 3px;
+    border-color: var(--secondary-color);
+}
+
+#searchInput:focus {
+    border-color: var(--highlight-color);
+    outline: none;
+}
+
+#language {
+    padding: 7px;
+    margin-left: 12px;
+    background-color: var(--primary-color);
+    color: var(--highlight-color);
+    border-color: var(--primary-color);
+    border-width: 1px;
+    border-radius: 6px;
 }

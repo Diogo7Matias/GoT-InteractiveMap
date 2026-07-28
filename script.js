@@ -32,6 +32,7 @@ let lang = langSelect.value;
 let fuse;
 let locations;
 let debounceTimer;
+let previousLocationID = null;
 
 input.addEventListener("input", () => {
     clearTimeout(debounceTimer);
@@ -75,12 +76,16 @@ function search(text) {
     const locID = results[0].item.id;
     const location = locations.get(locID);
 
-    placeHighlightMarker(location.y, location.x, location.marker);
+    if (locID != previousLocationID) {
+        placeHighlightMarker(location.y, location.x, location.marker);
+        previousLocationID = locID;
+    }
     map.flyTo([location.y, location.x], 0.5, {duration: 0.8});
 }
 
 function returnToBaseState() {
     removeHighlightMarker();
+    previousLocationID = null;
     map.flyTo([imageHeight / 2, imageWidth / 2], -2, {duration: 0.4});
 }
 
