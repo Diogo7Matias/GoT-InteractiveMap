@@ -1,4 +1,20 @@
 {
     "kings_landing": "King's Landing",
-    "winterfell": "Winterfell"
+    "winterfell": "Winterfell",
+    "lannisport": "Lannisport",
+    "casterly_rock": "Casterly Rock",
+    "rosby": "Rosby",
+    "harrenhal": "Harrenhal",
+    "golden_tooth": "Golden Tooth",
+    "riverrun": "Riverrun",
+    "maidenpool": "Maidenpool",
+    "duskendale": "Duskendale",
+    "dragonstone": "Dragonstone",
+    "storms_end": "Storm's End",
+    "highgarden": "Highgarden",
+    "ashford": "Ashford",
+    "bitterbridge": "Bitterbridge",
+    "oldtown": "Oldtown",
+    "starfall": "Starfall",
+    "sunspear": "Sunspear"
 }

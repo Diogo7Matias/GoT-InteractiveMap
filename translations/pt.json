@@ -1,4 +1,20 @@
 {
     "kings_landing": "Porto Real",
-    "winterfell": "Winterfell"
+    "winterfell": "Winterfell",
+    "lannisport": "Lannisporto",
+    "casterly_rock": "Rochedo Casterly",
+    "rosby": "Rosby",
+    "harrenhal": "Harrenhal",
+    "golden_tooth": "Dente Dourado",
+    "riverrun": "Correrrio",
+    "maidenpool": "-", 
+    "duskendale": "-",
+    "dragonstone": "Pedra do Dragão",
+    "storms_end": "Ponta Tempestade",
+    "highgarden": "Jardim de Cima",
+    "ashford": "-",
+    "bitterbridge": "-",
+    "oldtown": "Vilavelha",
+    "starfall": "Tombastella",
+    "sunspear": "Lançasolar"
 }

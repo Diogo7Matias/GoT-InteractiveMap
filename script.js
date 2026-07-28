@@ -50,7 +50,13 @@ function buildSearchArray(translations) {
 }
 
 function buildLocationsMap(locationsArray) {
-    return new Map(locationsArray.map(loc => [loc.id, loc]));
+    return new Map(locationsArray.map(loc => [
+        loc.id, 
+        {...loc,
+            // the loaded y-coordinates are top to bottom
+            y: imageHeight - loc.y
+        }
+    ]));
 }
 
 function buildFuseIndex(translations) {
@@ -102,7 +108,7 @@ function createDiamondMarker(y, x, size) {
         [y, x - half / 1.5]     // left
     ], {
         weight: 0,
-        fillColor: "#ff3511",
+        fillColor: "#815c39",
         fillOpacity: 1
     });
 }
@@ -111,7 +117,7 @@ function createCircleMarker(y, x, size) {
     return L.circle([y, x], {
         radius: size / 2,
         weight: 0,
-        fillColor: "#ff3511",
+        fillColor: "#815c39",
         fillOpacity: 1
     });
 }
@@ -122,6 +128,8 @@ function placeHighlightMarker(y, x, markerType) {
         highlightMarker = createDiamondMarker(y, x, 36).addTo(map);
     } else if (markerType == "circle") {
         highlightMarker = createCircleMarker(y, x, 32).addTo(map);
+    } else if (markerType == "circle_small") {
+        highlightMarker = createCircleMarker(y, x, 16).addTo(map);
     }
 }
 

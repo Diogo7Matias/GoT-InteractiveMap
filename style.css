@@ -2,7 +2,6 @@
     --primary-color: #45362a;
     --secondary-color: #604c39;
     --highlight-color: #f8dfc6;
-    --division-color: #32291e;
 }
 
 body {
@@ -14,6 +13,10 @@ body {
     height: 100vh;
     width: 100%;
     background-color: var(--secondary-color);
+}
+
+#map .leaflet-image-layer {
+    filter: sepia(0.2) saturate(1.4) brightness(0.95);
 }
 
 .topbar {

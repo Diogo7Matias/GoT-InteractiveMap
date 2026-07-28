@@ -1,4 +1,20 @@
 [
-    {"id": "kings_landing", "x": 2581, "y": 1186, "marker": "circle"},
-    {"id": "winterfell", "x": 760, "y": 1345, "marker": "diamond"}
+    {"id": "kings_landing", "x": 2581, "y": 1158, "marker": "circle"},
+    {"id": "winterfell", "x": 760, "y": 999, "marker": "diamond"},
+    {"id": "lannisport", "x": 1797, "y": 1030, "marker": "circle"},
+    {"id": "casterly_rock", "x": 1811, "y": 992, "marker": "diamond"},
+    {"id": "rosby", "x": 2602, "y": 1083, "marker": "diamond"},
+    {"id": "harrenhal", "x": 2460, "y": 825, "marker": "diamond"},
+    {"id": "golden_tooth", "x": 2037, "y": 856, "marker": "diamond"},
+    {"id": "riverrun", "x": 2202, "y": 730, "marker": "diamond"},
+    {"id": "maidenpool", "x": 2678, "y": 858, "marker": "circle_small"},
+    {"id": "duskendale", "x": 2724, "y": 979, "marker": "circle_small"},
+    {"id": "dragonstone", "x": 2883, "y": 950, "marker": "diamond"},
+    {"id": "storms_end", "x": 2802, "y": 1484, "marker": "diamond"},
+    {"id": "highgarden", "x": 2007, "y": 1592, "marker": "diamond"},
+    {"id": "ashford", "x": 2240, "y": 1546, "marker": "circle_small"},
+    {"id": "bitterbridge", "x": 2252, "y": 1370, "marker": "circle_small"},
+    {"id": "oldtown", "x": 1800, "y": 1885, "marker": "circle"},
+    {"id": "starfall", "x": 2027, "y": 2012, "marker": "diamond"},
+    {"id": "sunspear", "x": 2944, "y": 2100, "marker": "diamond"}
 ]
