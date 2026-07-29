@@ -1,3 +1,13 @@
+const PRIMARY_COLOR = getComputedStyle(document.documentElement)
+    .getPropertyValue('--primary-color')
+    .trim();
+const SECONDARY_COLOR = getComputedStyle(document.documentElement)
+    .getPropertyValue('--secondary-color')
+    .trim();
+const HIGHLIGHT_COLOR = getComputedStyle(document.documentElement)
+    .getPropertyValue('--highlight-color')
+    .trim();
+
 // map setup
 
 var imageWidth = 3164;
@@ -28,7 +38,7 @@ async function loadLocations() {
 
 const input = document.getElementById("searchInput");
 const langSelect = document.getElementById("language");
-let lang = langSelect.value;
+const searchResults = document.getElementById("searchResults");
 let fuse;
 let locations;
 let debounceTimer;
@@ -36,12 +46,11 @@ let previousLocationID = null;
 
 input.addEventListener("input", () => {
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => search(input.value), 250);
+    debounceTimer = setTimeout(() => search(input.value), 0); // ajust value
 });
 
 langSelect.addEventListener("change", async function () {
-    lang = langSelect.value;
-    const translations = await loadTranslations(lang);
+    const translations = await loadTranslations(langSelect.value);
     buildFuseIndex(translations);
 });
 
@@ -79,6 +88,17 @@ function search(text) {
         return;
     }
 
+    searchResults.innerHTML = "";
+    searchResults.style.visibility = "visible";
+    results.forEach(r => {
+        const li = document.createElement("li");
+        if (r.item.id === results[0].item.id) {
+            li.style.backgroundColor = SECONDARY_COLOR;
+        }
+        li.textContent = r.item.name;
+        searchResults.appendChild(li);
+    });
+
     const locID = results[0].item.id;
     const location = locations.get(locID);
 
@@ -90,6 +110,8 @@ function search(text) {
 }
 
 function returnToBaseState() {
+    searchResults.innerHTML = "";
+    searchResults.style.visibility = "hidden";
     removeHighlightMarker();
     previousLocationID = null;
     map.flyTo([imageHeight / 2, imageWidth / 2], -2, {duration: 0.4});
@@ -146,7 +168,7 @@ function init() {
     L.imageOverlay('images/westeros.jpg', bounds).addTo(map);
     map.fitBounds(bounds);
 
-    loadTranslations(lang).then(translations => {
+    loadTranslations(langSelect.value).then(translations => {
         buildFuseIndex(translations);
     });
 

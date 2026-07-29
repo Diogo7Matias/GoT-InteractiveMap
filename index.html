@@ -9,6 +9,7 @@
      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
+     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
           crossorigin=""></script>
@@ -16,7 +17,11 @@
 </head>
 <body>
      <div class="topbar">
-          <input id="searchInput" type="text" placeholder="Search">
+          <h1>GoT - World Map</h1>
+          <div class="searchWrapper">
+               <input id="searchInput" type="text" placeholder="Search">
+               <ul id="searchResults"></ul>
+          </div>
           <select name="language" id="language">
                <option value="en">🇬🇧 EN</option>
                <option value="pt">🇵🇹 PT</option>

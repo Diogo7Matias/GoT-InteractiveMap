@@ -9,6 +9,14 @@ body {
     margin: 0%;
 }
 
+h1, .title {
+    font-family: 'Cinzel', serif;
+}
+
+body, input, select #searchResults {
+    font-family: 'EB Garamond', serif;
+}
+
 #map { 
     height: 100vh;
     width: 100%;
@@ -27,7 +35,40 @@ body {
     background-color: var(--primary-color);
 }
 
+.topbar h1 {
+    position: absolute;
+    left: 20px;
+    top: 14px;
+    margin: 0px;
+    color: var(--highlight-color);
+}
+
+.searchWrapper {
+    position: relative;
+}
+
+#searchResults {
+    background-color: var(--primary-color);
+    color: var(--highlight-color);
+    font-size: large;
+    position: absolute;
+    top: 100%;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0px;
+    list-style: none;
+    z-index: 1000;
+    visibility: hidden;
+}
+
+#searchResults li {
+    padding-left: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
 #searchInput {
+    font-size: large;
     padding: 8px;
     color: var(--highlight-color);
     background-color: var(--primary-color);
