@@ -61,9 +61,11 @@ function buildSearchArray(translations) {
 function buildLocationsMap(locationsArray) {
     return new Map(locationsArray.map(loc => [
         loc.id, 
-        {...loc,
+        {
+            ...loc,
             // the loaded y-coordinates are top to bottom
-            y: imageHeight - loc.y
+            y: imageHeight - loc.y,
+            ...(loc.y2 !== undefined && { y2: imageHeight - loc.y2 })
         }
     ]));
 }
@@ -103,7 +105,14 @@ function search(text) {
     const location = locations.get(locID);
 
     if (locID != previousLocationID) {
-        placeHighlightMarker(location.y, location.x, location.marker);
+        removeHighlightMarkers();
+
+        // special case - double marker
+        if (locID == "the_twins") {
+            placeHighlightMarker(location.y2, location.x2, location.type);
+        }
+
+        placeHighlightMarker(location.y, location.x, location.type);
         previousLocationID = locID;
     }
     map.flyTo([location.y, location.x], 0.5, {duration: 0.8});
@@ -112,14 +121,14 @@ function search(text) {
 function returnToBaseState() {
     searchResults.innerHTML = "";
     searchResults.style.visibility = "hidden";
-    removeHighlightMarker();
+    removeHighlightMarkers();
     previousLocationID = null;
     map.flyTo([imageHeight / 2, imageWidth / 2], -2, {duration: 0.4});
 }
 
 // Location Highlight
 
-let highlightMarker = null;
+let highlightMarkers = [];
 
 function createDiamondMarker(y, x, size) {
     const half = size / 2;
@@ -144,21 +153,20 @@ function createCircleMarker(y, x, size) {
     });
 }
 
-function placeHighlightMarker(y, x, markerType) {
-    removeHighlightMarker();
-    if (markerType == "diamond") {
-        highlightMarker = createDiamondMarker(y, x, 36).addTo(map);
-    } else if (markerType == "circle") {
-        highlightMarker = createCircleMarker(y, x, 32).addTo(map);
-    } else if (markerType == "circle_small") {
-        highlightMarker = createCircleMarker(y, x, 16).addTo(map);
+function placeHighlightMarker(y, x, type) {
+    if (type == "castle") {
+        highlightMarkers.push(createDiamondMarker(y, x, 36).addTo(map));
+    } else if (type == "city") {
+        highlightMarkers.push(createCircleMarker(y, x, 32).addTo(map));
+    } else if (type == "town") {
+        highlightMarkers.push(createCircleMarker(y, x, 16).addTo(map));
     }
 }
 
-function removeHighlightMarker() {
-    if (highlightMarker) {
-        map.removeLayer(highlightMarker);
-    }
+function removeHighlightMarkers() {
+    highlightMarkers.forEach(marker => {
+        map.removeLayer(marker);
+    });
 }
 
 // =========== Init
