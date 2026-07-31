@@ -157,7 +157,7 @@ function placeHighlightMarker(y, x, type) {
     if (type == "castle") {
         highlightMarkers.push(createDiamondMarker(y, x, 36).addTo(map));
     } else if (type == "city") {
-        highlightMarkers.push(createCircleMarker(y, x, 32).addTo(map));
+        highlightMarkers.push(createCircleMarker(y, x, 30).addTo(map));
     } else if (type == "town") {
         highlightMarkers.push(createCircleMarker(y, x, 16).addTo(map));
     }
