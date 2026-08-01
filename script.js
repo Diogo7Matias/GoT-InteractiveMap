@@ -1,13 +1,3 @@
-const PRIMARY_COLOR = getComputedStyle(document.documentElement)
-    .getPropertyValue('--primary-color')
-    .trim();
-const SECONDARY_COLOR = getComputedStyle(document.documentElement)
-    .getPropertyValue('--secondary-color')
-    .trim();
-const HIGHLIGHT_COLOR = getComputedStyle(document.documentElement)
-    .getPropertyValue('--highlight-color')
-    .trim();
-
 // map setup
 
 var imageWidth = 3164;
@@ -43,10 +33,38 @@ let fuse;
 let locations;
 let debounceTimer;
 let previousLocationID = null;
+let selectedResultIndex = 0;
+let results;
+
+function updateSelectedHighlight() {
+    const items = searchResults.children;
+    for (let i = 0; i < items.length; ++i) {
+        items[i].classList.toggle("selected", i === selectedResultIndex);
+    }
+}
+
+input.addEventListener("keydown", function (event) {
+    if (event.code == "Escape") {
+        input.value = "";
+        search("");
+    } else if (event.code == "ArrowDown") {
+        event.preventDefault();
+        if (results.length === 0) return;
+        if (++selectedResultIndex >= results.length) selectedResultIndex = 0;
+        updateSelectedHighlight();
+        displayLocation();
+    } else if (event.code == "ArrowUp") {
+        event.preventDefault();
+        if (results.length === 0) return;
+        if (--selectedResultIndex < 0) selectedResultIndex = results.length - 1;
+        updateSelectedHighlight();
+        displayLocation();
+    }
+});
 
 input.addEventListener("input", () => {
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => search(input.value), 0); // ajust value
+    debounceTimer = setTimeout(() => search(input.value), 0); // adjust value
 });
 
 langSelect.addEventListener("change", async function () {
@@ -79,12 +97,14 @@ function buildFuseIndex(translations) {
 }
 
 function search(text) {
+    selectedResultIndex = 0;
+
     if (!text) {
         returnToBaseState();
         return;
     }
     
-    const results = fuse.search(text);
+    results = fuse.search(text);
     if (results.length === 0) {
         returnToBaseState();
         return;
@@ -95,13 +115,17 @@ function search(text) {
     results.forEach(r => {
         const li = document.createElement("li");
         if (r.item.id === results[0].item.id) {
-            li.style.backgroundColor = SECONDARY_COLOR;
+            li.classList.toggle("selected", true);
         }
         li.textContent = r.item.name;
         searchResults.appendChild(li);
     });
 
-    const locID = results[0].item.id;
+    displayLocation();
+}
+
+function displayLocation() {
+    const locID = results[selectedResultIndex].item.id;
     const location = locations.get(locID);
 
     if (locID != previousLocationID) {
@@ -115,7 +139,7 @@ function search(text) {
         placeHighlightMarker(location.y, location.x, location.type);
         previousLocationID = locID;
     }
-    map.flyTo([location.y, location.x], 0.5, {duration: 0.8});
+    map.flyTo([location.y, location.x], 0.5, { duration: 0.8 });
 }
 
 function returnToBaseState() {

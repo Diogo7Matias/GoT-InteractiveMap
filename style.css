@@ -67,6 +67,10 @@ body, input, select #searchResults {
     padding-bottom: 4px;
 }
 
+#searchResults li.selected {
+    background-color: var(--secondary-color);
+}
+
 #searchInput {
     font-size: large;
     padding: 8px;
