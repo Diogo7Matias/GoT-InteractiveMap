@@ -2,11 +2,18 @@
     --primary-color: #45362a;
     --secondary-color: #604c39;
     --highlight-color: #f8dfc6;
+    --dark-color: #3b2e24;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
-    margin: 0%;
 }
 
 h1, .title {
@@ -18,13 +25,55 @@ body, input, select #searchResults {
 }
 
 #map { 
-    height: 100vh;
-    width: 100%;
+    flex: 1;
+    height: auto;
+    position: relative;
     background-color: var(--secondary-color);
+    background-image: 
+        repeating-linear-gradient(45deg, rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 2px, transparent 2px, transparent 5px),
+        repeating-linear-gradient(-45deg, rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 2px, transparent 2px, transparent 5px);
+}
+
+#map::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 250px 200px rgba(0, 0, 0, 0.2);
+    z-index: 500;
 }
 
 #map .leaflet-image-layer {
     filter: sepia(0.2) saturate(1.4) brightness(0.95);
+}
+
+.leaflet-control-zoom {
+    border: 2px solid var(--dark-color) !important;
+    border-radius: 6px !important;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.leaflet-control-zoom a {
+    background-color: var(--primary-color) !important;
+    color: var(--highlight-color) !important;
+    font-family: 'EB Garamond', serif;
+    height: 32px !important;
+    border: none !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background-color: var(--secondary-color) !important;
+}
+
+.leaflet-control-zoom a.leaflet-disabled {
+    background-color: var(--dark-color) !important;
+    color: rgba(248, 223, 198, 0.4) !important;
+    cursor: default;
+}
+
+.leaflet-control-attribution {
+    visibility: hidden;
 }
 
 .topbar {
@@ -32,7 +81,7 @@ body, input, select #searchResults {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--primary-color);
+    background: linear-gradient(180deg, var(--primary-color), var(--dark-color));
 }
 
 .topbar h1 {
@@ -41,6 +90,8 @@ body, input, select #searchResults {
     top: 14px;
     margin: 0px;
     color: var(--highlight-color);
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px var(--secondary-color);
 }
 
 .searchWrapper {
@@ -50,13 +101,18 @@ body, input, select #searchResults {
 #searchResults {
     background-color: var(--primary-color);
     color: var(--highlight-color);
+    list-style: none;
     font-size: large;
+    letter-spacing: 2px;
     position: absolute;
     top: 100%;
     box-sizing: border-box;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 6px 6px;
+    border: 2px solid var(--secondary-color);
+    border-top: none;
     width: 100%;
     padding: 0px;
-    list-style: none;
     z-index: 1000;
     visibility: hidden;
 }
@@ -75,7 +131,7 @@ body, input, select #searchResults {
     font-size: large;
     padding: 8px;
     color: var(--highlight-color);
-    background-color: var(--primary-color);
+    background-color: transparent;
     border-color: var(--secondary-color);
     border-style: solid;
     border-width: 2px;
@@ -84,22 +140,46 @@ body, input, select #searchResults {
     border-right: none;
 }
 
-#searchInput:hover {
+#searchInput::placeholder {
+    color: inherit;
+    opacity: 0.5;
+}
+
+
+#language {
+    padding: 8px;
+    margin-left: 12px;
+    background-color: transparent;
+    color: var(--highlight-color);
+    border-color: var(--secondary-color);
+    border-style: solid;
+    border-width: 2px;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    cursor: pointer;
+}
+
+#language option {
+    background-color: var(--primary-color);
+}
+
+#searchInput,
+#language {
+    box-sizing: border-box;
+    height: 42px;
+    line-height: 1;
+}
+
+
+#searchInput:hover,
+#language:hover {
     border-width: 3px;
     border-color: var(--secondary-color);
 }
 
-#searchInput:focus {
+#searchInput:focus,
+#language:focus {
     border-color: var(--highlight-color);
     outline: none;
-}
-
-#language {
-    padding: 7px;
-    margin-left: 12px;
-    background-color: var(--primary-color);
-    color: var(--highlight-color);
-    border-color: var(--primary-color);
-    border-width: 1px;
-    border-radius: 6px;
 }
