@@ -18,14 +18,16 @@
 <body>
      <div class="topbar">
           <h1>GoT - World Map</h1>
-          <div class="searchWrapper">
-               <input id="searchInput" type="text" placeholder="Search">
-               <ul id="searchResults"></ul>
+          <div class="controls">
+               <div class="searchWrapper">
+                    <input id="searchInput" type="text" placeholder="Search">
+                    <ul id="searchResults"></ul>
+               </div>
+               <select name="language" id="language">
+                    <option value="en">🇬🇧 EN</option>
+                    <option value="pt">🇵🇹 PT</option>
+               </select>
           </div>
-          <select name="language" id="language">
-               <option value="en">🇬🇧 EN</option>
-               <option value="pt">🇵🇹 PT</option>
-          </select>
      </div>
      <div id="map"></div>
      <script src="script.js"></script>

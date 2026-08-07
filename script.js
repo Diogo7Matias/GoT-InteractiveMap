@@ -36,6 +36,13 @@ let previousLocationID = null;
 let selectedResultIndex = 0;
 let results;
 
+document.addEventListener("click", function (event) {
+    const clickedInsideSearch = input.contains(event.target) || searchResults.contains(event.target);
+    if (!clickedInsideSearch) {
+        searchResults.style.visibility = "hidden";
+    }
+});
+
 function updateSelectedHighlight() {
     const items = searchResults.children;
     for (let i = 0; i < items.length; ++i) {
@@ -66,6 +73,12 @@ input.addEventListener("input", () => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => search(input.value), 0); // adjust value
 });
+
+input.addEventListener("click", function () {
+    if (results.length != 0) {
+        searchResults.style.visibility = "visible";
+    }
+})
 
 searchResults.addEventListener("mousedown", function (event) {
     event.preventDefault();

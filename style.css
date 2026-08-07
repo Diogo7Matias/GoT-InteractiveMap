@@ -95,6 +95,10 @@ body, input, select #searchResults {
     text-shadow: 0 2px 4px var(--secondary-color);
 }
 
+.controls {
+    display: flex;
+}
+
 .searchWrapper {
     position: relative;
 }
@@ -185,4 +189,26 @@ body, input, select #searchResults {
 #language:focus {
     border-color: var(--highlight-color);
     outline: none;
+}
+
+/* Support for smaller screen sizes (mobile) */
+
+@media (max-width: 972px) {
+    .topbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .topbar h1 {
+        position: static;
+        text-align: center;
+    }
+
+    .controls {
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+    }
 }
