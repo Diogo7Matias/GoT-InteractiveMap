@@ -67,6 +67,10 @@ input.addEventListener("input", () => {
     debounceTimer = setTimeout(() => search(input.value), 0); // adjust value
 });
 
+searchResults.addEventListener("mousedown", function (event) {
+    event.preventDefault();
+});
+
 langSelect.addEventListener("change", async function () {
     const translations = await loadTranslations(langSelect.value);
     buildFuseIndex(translations);
@@ -118,6 +122,13 @@ function search(text) {
             li.classList.toggle("selected", true);
         }
         li.textContent = r.item.name;
+
+        li.addEventListener("click", function () {
+            selectedResultIndex = results.findIndex(res => res.item.id === r.item.id);
+            updateSelectedHighlight();
+            displayLocation();
+        });
+
         searchResults.appendChild(li);
     });
 

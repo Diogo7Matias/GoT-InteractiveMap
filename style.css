@@ -1,6 +1,7 @@
 :root {
     --primary-color: #45362a;
     --secondary-color: #604c39;
+    --light-color: #6b5948;
     --highlight-color: #f8dfc6;
     --dark-color: #3b2e24;
 }
@@ -123,6 +124,10 @@ body, input, select #searchResults {
     padding-bottom: 4px;
 }
 
+#searchResults li:hover {
+    background-color: var(--light-color);
+}
+
 #searchResults li.selected {
     background-color: var(--secondary-color);
 }
@@ -144,7 +149,6 @@ body, input, select #searchResults {
     color: inherit;
     opacity: 0.5;
 }
-
 
 #language {
     padding: 8px;
@@ -170,7 +174,6 @@ body, input, select #searchResults {
     height: 42px;
     line-height: 1;
 }
-
 
 #searchInput:hover,
 #language:hover {
